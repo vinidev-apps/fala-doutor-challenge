@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+
+class DarkColorScheme {
+  static const ColorScheme scheme = ColorScheme(
+    brightness: Brightness.light,
+    primary: Color(0xFF4D00FF),
+    onPrimary: Color(0xFFFFFEFA),
+    primaryContainer: Color(0xFF4D00FF),
+    onPrimaryContainer: Color(0xFFFFFEFA),
+    secondary: Color(0xFFFFDD1A),
+    onSecondary: Color(0xFF4D4208),
+    secondaryContainer: Color(0xFFCCB114),
+    onSecondaryContainer: Color(0xFF4D4208),
+    tertiary: Color(0xFF1AC2FF),
+    onTertiary: Color(0xFFFFFEFA),
+    tertiaryContainer: Color(0xFF1498C8),
+    onTertiaryContainer: Color(0xFFFFFEFA),
+    error: Color(0xFFFF193F),
+    errorContainer: Color(0xFFFF193F),
+    onError: Color(0xFFFFFEFA),
+    onErrorContainer: Color(0xFFFFFEFA),
+    surface: Color(0xFFFFFEFA),
+    onSurface: Color(0xFF4D4208),
+    surfaceContainer: Color(0xFFEFECDD),
+    surfaceContainerHigh: Color(0xFF4D4208),
+    surfaceContainerHighest: Color(0xFF998100),
+    onSurfaceVariant: Color(0xFFFFFCEB),
+    outline: Color(0xFF4D4208),
+    onInverseSurface: Color(0xFF4D4208),
+    inverseSurface: Color(0xFFFFFCEB),
+    inversePrimary: Color(0xFF1C084D),
+    shadow: Color(0xFF180533),
+    surfaceTint: Color(0xFFFFFDF2),
+    outlineVariant: Color(0xFF24084D),
+    scrim: Color(0xFF00CC6D),
+  );
+}
