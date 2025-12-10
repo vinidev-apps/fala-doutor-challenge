@@ -93,13 +93,13 @@ class _SignInMobilePageState extends State<SignInMobilePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 20),
                         Image.asset(
                           Constants.logoTypeImage,
                           height: 70,
                           fit: BoxFit.cover,
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 40),
                         Text(
                           "entrar com e-mail",
                           style: Theme.of(context).textTheme.headlineSmall
@@ -108,7 +108,7 @@ class _SignInMobilePageState extends State<SignInMobilePage> {
                                 fontSize: 20,
                               ),
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 40),
                         DefaultTextFormFieldWidget(
                           verticalPadding: 0,
                           hintText: 'Insira seu e-mail...',
@@ -266,7 +266,7 @@ class _SignInMobilePageState extends State<SignInMobilePage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 40),
                         GradientTextButtonWidget(
                           labelText: 'entrar',
                           labelTextStyle: Theme.of(context).textTheme.labelLarge
@@ -283,7 +283,7 @@ class _SignInMobilePageState extends State<SignInMobilePage> {
                             );
                           },
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -315,7 +315,7 @@ class _SignInMobilePageState extends State<SignInMobilePage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -328,7 +328,7 @@ class _SignInMobilePageState extends State<SignInMobilePage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 40),
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
@@ -358,7 +358,7 @@ class _SignInMobilePageState extends State<SignInMobilePage> {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),

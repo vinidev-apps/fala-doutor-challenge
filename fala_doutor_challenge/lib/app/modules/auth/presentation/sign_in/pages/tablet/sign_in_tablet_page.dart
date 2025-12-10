@@ -94,21 +94,22 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 40),
                           Image.asset(
                             Constants.logoTypeImage,
                             height: 70,
                             fit: BoxFit.cover,
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 40),
                           Text(
                             "entrar com e-mail",
                             style: Theme.of(context).textTheme.headlineSmall
                                 ?.copyWith(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
                                 ),
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 40),
                           DefaultTextFormFieldWidget(
                             verticalPadding: 0,
                             hintText: 'Insira seu e-mail...',
@@ -116,14 +117,20 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                             textInputType: TextInputType.emailAddress,
                             textStyle: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                   fontSize: 16,
                                 ),
-                            hintTextStyle: Theme.of(context).textTheme.bodyMedium
+                            hintTextStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
                                 ?.copyWith(
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w300,
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                   fontSize: 16,
                                 ),
                             suffix: Padding(
@@ -145,17 +152,22 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                           DefaultTextFormFieldWidget(
                             hintText: 'Insira sua senha...',
                             verticalPadding: 0,
-                            textEditingController: widget.passwordTextController,
+                            textEditingController:
+                                widget.passwordTextController,
                             textStyle: Theme.of(context).textTheme.bodyLarge
                                 ?.copyWith(
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                   fontSize: 16,
                                 ),
                             hintTextStyle: Theme.of(context).textTheme.bodyLarge
                                 ?.copyWith(
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w300,
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                   fontSize: 16,
                                 ),
                             obscureText: hidePasswordField,
@@ -176,7 +188,9 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                                   hidePasswordField
                                       ? FontAwesomeIcons.eye
                                       : FontAwesomeIcons.eyeSlash,
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                   size: 20,
                                 ),
                               ),
@@ -212,16 +226,18 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                                           ),
                                           side: BorderSide.none,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(6),
+                                            borderRadius: BorderRadius.circular(
+                                              6,
+                                            ),
                                           ),
                                           materialTapTargetSize:
                                               MaterialTapTargetSize.shrinkWrap,
-            
+
                                           visualDensity: const VisualDensity(
                                             horizontal: -2,
                                             vertical: -4,
                                           ),
-            
+
                                           onChanged: (value) {
                                             setState(() {
                                               keepLogged = value ?? false;
@@ -243,7 +259,7 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                                   ),
                                 ],
                               ),
-            
+
                               InkWell(
                                 onTap: () => widget.goToPasswordRecoveryPage(),
                                 hoverColor: Colors.transparent,
@@ -252,7 +268,9 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                                   "Esqueceu a senha?",
                                   style: Theme.of(context).textTheme.bodyLarge
                                       ?.copyWith(
-                                        color: Theme.of(context).colorScheme.error,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.error,
                                         decoration: TextDecoration.underline,
                                         decorationColor: Theme.of(
                                           context,
@@ -263,25 +281,28 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 40),
                           GradientTextButtonWidget(
                             labelText: 'entrar',
                             onTap: () {
                               widget.onSignIn(
                                 email: widget.emailTextController.text.trim(),
-                                password: widget.passwordTextController.text.trim(),
+                                password: widget.passwordTextController.text
+                                    .trim(),
                                 keepLogged: keepLogged,
                               );
                             },
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 40),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 child: Divider(
                                   thickness: 1,
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
                                   radius: BorderRadius.circular(10),
                                 ),
                               ),
@@ -300,13 +321,15 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                               Expanded(
                                 child: Divider(
                                   thickness: 1,
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
                                   radius: BorderRadius.circular(10),
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 40),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -319,14 +342,16 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 40),
                           RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               text: "Não possui uma conta? ",
                               style: Theme.of(context).textTheme.bodyLarge
                                   ?.copyWith(
-                                    color: Theme.of(context).colorScheme.onSurface,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
                                   ),
                               children: [
                                 TextSpan(
@@ -347,7 +372,6 @@ class _SignInTabletPageState extends State<SignInTabletPage> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20),
                         ],
                       ),
                     ),

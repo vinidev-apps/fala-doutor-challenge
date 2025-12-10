@@ -1,6 +1,7 @@
 class Constants {
   // Images 
   static const String signInDisplayImage = 'assets/images/doctor_login.png';
+  static const String passwordRecoveryDisplayImage = 'assets/images/doctor_password_recovery.png';
 
   // Images LOGOS  
   static const String logoTypeImage = 'assets/logos/logotype.png';

@@ -1,1 +1,33 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"fala-doutor-challenge","appId":"1:495035301106:android:0451bcd8ea28c9e940a46b","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"fala-doutor-challenge","configurations":{"android":"1:495035301106:android:0451bcd8ea28c9e940a46b","ios":"1:495035301106:ios:2e54396edb9b89b740a46b","macos":"1:495035301106:ios:2e54396edb9b89b740a46b","web":"1:495035301106:web:ddb8dbb961acc72440a46b","windows":"1:495035301106:web:83a60fe62085329540a46b"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "fala-doutor-challenge",
+          "appId": "1:495035301106:android:0451bcd8ea28c9e940a46b",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fala-doutor-challenge",
+          "configurations": {
+            "android": "1:495035301106:android:0451bcd8ea28c9e940a46b",
+            "ios": "1:495035301106:ios:2e54396edb9b89b740a46b",
+            "macos": "1:495035301106:ios:2e54396edb9b89b740a46b",
+            "web": "1:495035301106:web:ddb8dbb961acc72440a46b",
+            "windows": "1:495035301106:web:83a60fe62085329540a46b"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -134,7 +134,7 @@ class _SignInDesktopPageState extends State<SignInDesktopPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const SizedBox(height: 60),
+                                  const SizedBox(height: 40),
                                   Image.asset(
                                     Constants.logoTypeImage,
                                     height: 70,
