@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
     bloc.add(
       SignInWithEmailEvent(
         email: email,
-        password: password,
+      password: password,
         keepLoggedIn: keepLogged,
       ),
     );

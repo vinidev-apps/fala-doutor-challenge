@@ -12,6 +12,7 @@ import 'package:fala_doutor_challenge/app/modules/auth/presentation/password_rec
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/password_recovery/pages/password_recovery_page.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_in/bloc/sign_in_bloc.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_in/pages/sign_in_page.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/bloc/sign_up_bloc.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/pages/sign_up_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -52,6 +53,7 @@ class AuthModule extends Module {
     // BLOC
     i.addLazySingleton<SignInBloc>(SignInBloc.new);
     i.addLazySingleton<PasswordRecoveryBloc>(PasswordRecoveryBloc.new);
+    i.addLazySingleton<SignUpBloc>(SignUpBloc.new);
   }
 
   @override
