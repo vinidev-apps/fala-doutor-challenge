@@ -8,6 +8,8 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigatorKey = GlobalKey<NavigatorState>();
+    final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+        GlobalKey<ScaffoldMessengerState>();
 
     // Configuração dos métodos de suporte do Modular
     Modular.setNavigatorKey(
@@ -22,6 +24,7 @@ class AppWidget extends StatelessWidget {
 
     return MaterialApp.router(
       title: 'Fala, doutor!',
+      scaffoldMessengerKey: scaffoldMessengerKey,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

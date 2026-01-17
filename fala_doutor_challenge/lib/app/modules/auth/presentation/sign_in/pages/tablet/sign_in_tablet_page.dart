@@ -1,6 +1,6 @@
 import 'package:fala_doutor_challenge/app/core/utils/constants.dart';
 import 'package:fala_doutor_challenge/app/core/utils/formatters/email_input_formatter.dart';
-import 'package:fala_doutor_challenge/app/core/widgets/buttons/rounded_gradient_button_widget.dart';
+import 'package:fala_doutor_challenge/app/core/widgets/buttons/gradient_text_button_widget.dart';
 import 'package:fala_doutor_challenge/app/core/widgets/textfields/default_text_form_field_widget.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_in/bloc/sign_in_bloc.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_in/bloc/sign_in_states.dart';

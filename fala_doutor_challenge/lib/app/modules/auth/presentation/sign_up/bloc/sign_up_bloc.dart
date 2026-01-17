@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/user_entity.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/user_locale_entity.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:flutter/widgets.dart';
 
 import 'sign_up_events.dart';
 import 'sign_up_states.dart';
@@ -54,6 +55,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       totalSteps = 5 + 5 + 2;
     }
 
+    debugPrint("User atualizado! ${event.user.toString()}");
     emit(current.copyWith(user: event.user, totalSteps: totalSteps));
   }
 

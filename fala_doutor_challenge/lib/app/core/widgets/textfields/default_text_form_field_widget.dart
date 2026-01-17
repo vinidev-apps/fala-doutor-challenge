@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DefaultTextFormFieldWidget extends StatefulWidget {
   final String? labelText;
@@ -11,6 +10,7 @@ class DefaultTextFormFieldWidget extends StatefulWidget {
   final TextStyle? hintTextStyle;
   final int? hintTextMaxLines;
   final double? verticalPadding;
+  final double? verticalContentPadding;
   final double? horizontalContentPadding;
   final TextEditingController textEditingController;
   final TextInputType? textInputType;
@@ -32,6 +32,7 @@ class DefaultTextFormFieldWidget extends StatefulWidget {
     this.hintTextStyle,
     this.hintTextMaxLines,
     this.verticalPadding,
+    this.verticalContentPadding,
     this.horizontalContentPadding,
     required this.textEditingController,
     this.textInputType,
@@ -71,7 +72,7 @@ class _DefaultTextFormFieldWidgetState
                     Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w900,
                     ),
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.left,
               ),
             ),
           ),
@@ -90,7 +91,7 @@ class _DefaultTextFormFieldWidgetState
                 ),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
-                vertical: 10,
+                vertical: widget.verticalContentPadding ?? 10,
                 horizontal: widget.horizontalContentPadding ?? 20,
               ),
               filled: widget.filled ?? true,
@@ -105,14 +106,7 @@ class _DefaultTextFormFieldWidgetState
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
               hintMaxLines: widget.hintTextMaxLines ?? 2,
-              suffixIcon:
-                  widget.suffix ??
-                  FaIcon(
-                    FontAwesomeIcons.pen,
-                    color: Theme.of(context).colorScheme.onBackground,
-                    size: 15,
-                  ),
-
+              suffixIcon: widget.suffix,
               border:
                   widget.inputBorder ??
                   OutlineInputBorder(

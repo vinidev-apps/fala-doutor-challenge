@@ -50,7 +50,7 @@ class AppTextTheme {
       // Body styles
       bodyLarge: TextStyle(
         fontFamily: 'Montserrat',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
       bodyMedium: TextStyle(
