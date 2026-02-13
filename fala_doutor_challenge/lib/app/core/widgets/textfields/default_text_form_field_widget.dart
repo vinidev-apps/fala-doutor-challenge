@@ -107,6 +107,11 @@ class _DefaultTextFormFieldWidgetState
                   ),
               hintMaxLines: widget.hintTextMaxLines ?? 2,
               suffixIcon: widget.suffix,
+              suffixIconConstraints: const BoxConstraints(
+                minWidth: 80,
+                maxWidth: 80,
+                minHeight: 0,
+              ),
               border:
                   widget.inputBorder ??
                   OutlineInputBorder(

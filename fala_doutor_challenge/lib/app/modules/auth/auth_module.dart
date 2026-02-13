@@ -2,6 +2,7 @@ import 'package:fala_doutor_challenge/app/modules/auth/data/datasource/auth_data
 import 'package:fala_doutor_challenge/app/modules/auth/data/repository/auth_repository_impl.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/repository/auth_repository.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/check_email_verification_usecase.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/get_available_health_plans_usecase.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/get_logged_user_usecase.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/send_email_verification_usecase.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/send_password_reset_email_usecase.dart';
@@ -48,6 +49,9 @@ class AuthModule extends Module {
     );
     i.addLazySingleton<CheckEmailVerificationUsecase>(
       () => CheckEmailVerificationUsecase(i.get<AuthRepository>()),
+    );
+    i.addLazySingleton<GetAvailableHealthPlansUsecase>(
+      () => GetAvailableHealthPlansUsecase(i.get<AuthRepository>()),
     );
 
     // BLOC

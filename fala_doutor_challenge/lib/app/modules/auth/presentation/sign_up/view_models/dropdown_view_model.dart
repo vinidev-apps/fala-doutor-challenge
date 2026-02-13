@@ -1,5 +1,5 @@
 class DropdownValueModel {
-  String value;
+  dynamic value;
   String label;
 
   DropdownValueModel({required this.value, required this.label});
@@ -21,9 +21,9 @@ List<DropdownValueModel> sexValues = [
   ),
 ];
 
-List<DropdownValueModel> healthPlanValues = [
-  DropdownValueModel(value: 'Unimed', label: 'Unimed Fortaleza'),
-  DropdownValueModel(value: 'None', label: 'Não possuo plano de saúde'),
+List<DropdownValueModel> hasHealthPlanValues = [
+  DropdownValueModel(value: true, label: 'Sim, possuo plano de saúde'),
+  DropdownValueModel(value: false, label: 'Não possuo plano de saúde'),
 ];
 
 List<DropdownValueModel> specialityValues = [
@@ -35,6 +35,6 @@ List<DropdownValueModel> specialityValues = [
 ];
 
 List<DropdownValueModel> webAppointmentsValues = [
-  DropdownValueModel(value: 'true', label: 'Sim, atendo teleconsultas.'),
-  DropdownValueModel(value: 'false', label: 'Não, não atendo teleconsultas.'),
+  DropdownValueModel(value: true, label: 'Sim, atendo teleconsultas'),
+  DropdownValueModel(value: false, label: 'Não atendo teleconsultas'),
 ];

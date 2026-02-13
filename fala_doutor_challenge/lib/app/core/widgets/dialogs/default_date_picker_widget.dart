@@ -52,7 +52,7 @@ class _DefaultDateFilterDialogWidgetState
             onTap: () => Navigator.pop(context),
             child: FaIcon(
               FontAwesomeIcons.xmark,
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
               size: 35,
             ),
           ),

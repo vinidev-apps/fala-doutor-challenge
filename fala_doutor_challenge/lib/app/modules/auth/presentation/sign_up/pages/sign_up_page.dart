@@ -4,11 +4,12 @@ import 'package:fala_doutor_challenge/app/core/utils/extensions/string_extension
 import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/user_entity.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/bloc/sign_up_bloc.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/bloc/sign_up_events.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/bloc/sign_up_states.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/pages/desktop/sign_up_desktop_page.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/pages/mobile/sign_up_mobile_page.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/pages/tablet/sign_up_tablet_page.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/view_models/sign_up_step_view_model.dart';
-import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/view_models/user_type_view_model.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/view_models/dropdown_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -35,7 +36,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController passwordTextController = TextEditingController();
 
   // Controllers do type "patient"
-  final DropdownValueModel healthPlanDropdownValue = healthPlanValues.first;
+  final DropdownValueModel hasHealthPlanDropdownValue =
+      hasHealthPlanValues.first;
   final TextEditingController healthPlanCodeCard = TextEditingController();
   final DropdownValueModel cityDropdownValue = DropdownValueModel(
     value: 'Fortaleza',
@@ -96,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
           return SignUpStepViewModel(
             stepDisplayImage: Constants.signUpAnalyzingImage,
             stepHeadlineText: "Você possui plano de Saúde?",
-            stepDropdownValue: healthPlanDropdownValue,
+            stepDropdownValue: hasHealthPlanDropdownValue,
           );
         } else {
           return SignUpStepViewModel(
@@ -107,10 +109,42 @@ class _SignUpPageState extends State<SignUpPage> {
         }
       case 6:
         if (user.type == 'patient') {
+          List<DropdownValueModel> healthPlanDropdownItems =
+              bloc.state is SignUpFlowState
+              ? (bloc.state as SignUpFlowState).availableHealthPlans
+                    .map(
+                      (plan) => DropdownValueModel(
+                        value: plan,
+                        label: plan.displayName,
+                      ),
+                    )
+                    .toList()
+              : [];
+
+          return SignUpStepViewModel(
+            stepDisplayImage: Constants.signUpAnalyzingImage,
+            stepHeadlineText: "Qual é o seu principal plano de saúde?",
+            stepDropdownItems: healthPlanDropdownItems,
+            stepDropdownValue: healthPlanDropdownItems.isNotEmpty
+                ? healthPlanDropdownItems.first
+                : null,
+          );
+        } else {
+          return SignUpStepViewModel(
+            stepDisplayImage: Constants.signUpHappyImage,
+            stepHeadlineText:
+                "Poderia selecionar os planos de saúde que você atende?",
+            healthPlansDoctor: bloc.state is SignUpFlowState
+                ? (bloc.state as SignUpFlowState).availableHealthPlans
+                : [],
+          );
+        }
+      case 7:
+        if (user.type == 'patient') {
           return SignUpStepViewModel(
             stepDisplayImage: Constants.signUpAnalyzingImage,
             stepHeadlineText:
-                "Poderia digitar o código da carteirinha do seu plano${user.patientData?.healthPlan.name ?? ''}?",
+                "Poderia digitar o código da carteirinha do seu plano${user.patientData?.userHealthPlans.first.healthPlan.name ?? ''}?",
             stepTextEditingControler: healthPlanCodeCard,
           );
         } else {
@@ -120,7 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
             stepDropdownValue: specialityDropdownValue,
           );
         }
-      case 7:
+      case 8:
         if (user.type == 'patient') {
           return SignUpStepViewModel(
             stepDisplayImage: Constants.signUpHappyImage,
@@ -129,26 +163,26 @@ class _SignUpPageState extends State<SignUpPage> {
           );
         } else {
           return SignUpStepViewModel(
-            stepDisplayImage: Constants.signUpHappyImage,
-            stepHeadlineText:
-                "Poderia selecionar os planos de saúde que você atende?",
-            healthPlansDoctor: availableHealthPlans,
+            stepDisplayImage: Constants.signUpAnalyzingImage,
+            stepHeadlineText: "E você atende teleconsultas?",
+            stepDropdownValue: webAppointmentsDropdownValue,
           );
         }
-      case 8:
-        return SignUpStepViewModel(
-          stepDisplayImage: Constants.signUpAnalyzingImage,
-          stepHeadlineText: "E você atende teleconsultas?",
-          stepDropdownValue: webAppointmentsDropdownValue,
-        );
-
       case 9:
-        return SignUpStepViewModel(
-          stepDisplayImage: Constants.signUpHappyImage,
-          stepHeadlineText: "Para finalizar, em qual cidade você atende?",
-          stepDropdownValue: doctorCityDropdownValue,
-        );
-
+        if (user.type == 'doctor') {
+          return SignUpStepViewModel(
+            stepDisplayImage: Constants.signUpHappyImage,
+            stepHeadlineText: "Para finalizar, em qual cidade você atende?",
+            stepDropdownValue: doctorCityDropdownValue,
+          );
+        } else {
+          return SignUpStepViewModel(
+            stepDisplayImage: Constants.signUpHappyImage,
+            stepHeadlineText:
+                "Ótimo! Agora é só criar uma senha para sua conta.",
+            stepTextEditingControler: passwordTextController,
+          );
+        }
       default:
         return SignUpStepViewModel(
           stepDisplayImage: Constants.signUpWalkingImage,
@@ -158,57 +192,23 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  // Validator
-  String? validateField(String? value, String type) {
-    if (value == null || value.trim().isEmpty) {
-      return "Campo obrigatório";
-    }
-
-    switch (type) {
-      case 'name':
-        if (value.length < 3) {
-          return 'O nome deve ter ao menos 3 caracteres.';
-        }
-        if (!RegExp(r'^[a-zA-ZÀ-ÿ\s]+$').hasMatch(value)) {
-          return 'O nome deve conter apenas letras e espaços.';
-        }
-        break;
-      case 'birthDate':
-        break;
-      case "email":
-        if (!RegExp(
-          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-        ).hasMatch(value.trim())) {
-          return "E-mail inválido";
-        }
-        break;
-      case "password":
-        if (value.length < 8) {
-          return "A senha deve ter ao menos 8 caracteres.";
-        }
-        break;
-    }
-    return null;
-  }
-
   // BLOC METHODS
-
-  /// Atualiza campos do usuário via copyWith
+  // Atualiza campos do usuário via copyWith
   void updateUser(UserEntity newUser) {
     bloc.add(SignUpUpdateUserEvent(newUser));
   }
 
-  /// Avança step
+  // Avança step
   void goNextStep() {
     bloc.add(SignUpNextStepEvent());
   }
 
-  /// Volta step
+  // Volta step
   void goPreviousStep() {
     bloc.add(SignUpPreviousStepEvent());
   }
 
-  /// Confirma cadastro final
+  // Confirma cadastro final
   Future<void> submitSignUp() async {
     final password = passwordTextController.text.trim();
 
@@ -217,9 +217,20 @@ class _SignUpPageState extends State<SignUpPage> {
     bloc.add(SignUpSubmitEvent(password));
   }
 
-  /// Volta para o Sign In
+  // Carrega planos de saúde disponíveis
+  Future<void> loadHealthPlans() async {
+    bloc.add(SignUpLoadHealthPlansEvent());
+  }
+
+  // Volta para o Sign In
   void goToSignInPage() {
     Modular.to.pushReplacementNamed("/");
+  }
+
+  @override
+  void initState() {
+    loadHealthPlans();
+    super.initState();
   }
 
   @override
@@ -232,14 +243,11 @@ class _SignUpPageState extends State<SignUpPage> {
           signUpBloc: bloc,
           formKey: formKey,
           userTypeDropdownValue: userTypeDropdownValue,
-          nameTextController: nameTextController,
-          emailTextController: emailTextController,
-          passwordTextController: passwordTextController,
-          validateField: validateField,
           updateUser: updateUser,
           goNextStep: goNextStep,
           goPreviousStep: goPreviousStep,
           submitSignUp: submitSignUp,
+          loadHealthPlans: loadHealthPlans,
           goToSignInPage: goToSignInPage,
           getStepViewModelFromIndexAndUser: getStepViewModelFromIndexAndUser,
         ),

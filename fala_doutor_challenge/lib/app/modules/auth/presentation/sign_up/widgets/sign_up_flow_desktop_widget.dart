@@ -1,24 +1,25 @@
 import 'package:fala_doutor_challenge/app/core/widgets/buttons/gradient_text_button_widget.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/bloc/sign_up_states.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/view_models/sign_up_step_view_model.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/presentation/sign_up/widgets/sign_up_flow_input_widget.dart';
 import 'package:flutter/material.dart';
 
 class SignUpFlowDesktopWidget extends StatefulWidget {
+  final SignUpFlowState state;
   final GlobalKey formKey;
 
   final double progress;
   final int stepIndex;
   final SignUpStepViewModel signUpStepViewModel;
-  final String? Function(String?, String)? validateInputField;
   final void Function() onNextStep;
 
   const SignUpFlowDesktopWidget({
     super.key,
+    required this.state,
     required this.formKey,
     required this.progress,
     required this.stepIndex,
     required this.signUpStepViewModel,
-    this.validateInputField,
     required this.onNextStep,
   });
 
@@ -108,20 +109,24 @@ class _SignUpFlowDesktopWidgetState extends State<SignUpFlowDesktopWidget> {
                                 ).createShader(bounds),
                                 child: Text(
                                   widget.signUpStepViewModel.stepHeadlineText,
-                                  style: Theme.of(context).textTheme.headlineLarge
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge
                                       ?.copyWith(color: Colors.white),
                                   textAlign: TextAlign.justify,
                                 ),
                               ),
                               const SizedBox(height: 30),
                               SignUpFlowInputWidget(
+                                state: widget.state,
                                 stepIndex: widget.stepIndex,
+                                stepViewModel: widget.signUpStepViewModel,
                                 inputTextController: widget
                                     .signUpStepViewModel
                                     .stepTextEditingControler,
-                                inputDropdownValue:
-                                    widget.signUpStepViewModel.stepDropdownValue,
-                                validateInputField: widget.validateInputField,
+                                inputDropdownValue: widget
+                                    .signUpStepViewModel
+                                    .stepDropdownValue,
                               ),
                               const SizedBox(height: 30),
                               GradientTextButtonWidget(

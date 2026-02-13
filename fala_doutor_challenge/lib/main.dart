@@ -8,6 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 void main() async {
   // Firebase
   WidgetsFlutterBinding.ensureInitialized();
+  
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // App

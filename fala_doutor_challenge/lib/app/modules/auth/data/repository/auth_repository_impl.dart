@@ -1,5 +1,7 @@
 import 'package:fala_doutor_challenge/app/modules/auth/data/datasource/auth_datasource.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/data/models/health_plan_model.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/data/models/user_model.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/health_plan_entity.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/user_entity.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/repository/auth_repository.dart';
 
@@ -64,5 +66,17 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<bool> isEmailVerified() async {
     return await _datasource.isEmailVerified();
+  }
+
+  @override
+  Future<List<HealthPlanEntity>> getAvailableHealthPlans() async {
+    final List<HealthPlanModel>? models =
+        await _datasource.getAvailableHealthPlans() as List<HealthPlanModel>?;
+
+        
+
+    if (models == null) return Future.value([]);
+
+    return Future.value(models.map((model) => model.toEntity()).toList());
   }
 }

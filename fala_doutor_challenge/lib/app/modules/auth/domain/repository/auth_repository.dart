@@ -1,3 +1,4 @@
+import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/health_plan_entity.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/user_entity.dart';
 
 abstract class AuthRepository {
@@ -24,4 +25,7 @@ abstract class AuthRepository {
 
   // Check email verification
   Future<bool> isEmailVerified();
+
+  // Get available health plans (para dropdown)
+  Future<List<HealthPlanEntity>> getAvailableHealthPlans();
 }

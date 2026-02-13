@@ -1,17 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/data/models/health_plan_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/data/models/user_model.dart';
+import 'package:flutter/material.dart';
 
 abstract class AuthDatasource {
-  Future<UserModel> signIn({
-    required String email,
-    required String password,
-  });
+  Future<UserModel> signIn({required String email, required String password});
 
-  Future<UserModel> signUp({
-    required UserModel user,
-    required String password,
-  });
+  Future<UserModel> signUp({required UserModel user, required String password});
 
   Future<void> signOut();
   Future<UserModel?> getLoggedUser();
@@ -19,6 +15,7 @@ abstract class AuthDatasource {
   Future<void> sendPasswordResetEmail({required String email});
   Future<void> sendEmailVerification();
   Future<bool> isEmailVerified();
+  Future<List<HealthPlanModel>> getAvailableHealthPlans();
 }
 
 // IMPLEMENTAÇÃO
@@ -26,11 +23,9 @@ class AuthDatasourceImpl implements AuthDatasource {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
 
-  AuthDatasourceImpl({
-    FirebaseAuth? auth,
-    FirebaseFirestore? firestore,
-  })  : _auth = auth ?? FirebaseAuth.instance,
-        _firestore = firestore ?? FirebaseFirestore.instance;
+  AuthDatasourceImpl({FirebaseAuth? auth, FirebaseFirestore? firestore})
+    : _auth = auth ?? FirebaseAuth.instance,
+      _firestore = firestore ?? FirebaseFirestore.instance;
 
   final String collection = 'users';
 
@@ -95,8 +90,7 @@ class AuthDatasourceImpl implements AuthDatasource {
 
     if (current == null) return null;
 
-    final doc =
-        await _firestore.collection(collection).doc(current.uid).get();
+    final doc = await _firestore.collection(collection).doc(current.uid).get();
 
     if (!doc.exists) return null;
 
@@ -130,5 +124,25 @@ class AuthDatasourceImpl implements AuthDatasource {
 
     await user.reload();
     return user.emailVerified;
+  }
+
+  // GET AVAILABLE HEALTH PLANS
+  @override
+  Future<List<HealthPlanModel>> getAvailableHealthPlans() async {
+    try {
+      final snapshot = await _firestore.collection('health_plans').get();
+
+      debugPrint("🔥 Health Plans Count: ${snapshot.docs.length}");
+
+      if (snapshot.docs.isEmpty) {
+        return [];
+      }
+
+      return snapshot.docs.map((doc) {
+        return HealthPlanModel.fromMap({...doc.data(), 'id': doc.id});
+      }).toList();
+    } on FirebaseException catch (e) {
+      throw Exception("Erro ao buscar planos de saúde: ${e.message}");
+    }
   }
 }

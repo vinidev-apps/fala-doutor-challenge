@@ -64,6 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '495035301106',
     projectId: 'fala-doutor-challenge',
     storageBucket: 'fala-doutor-challenge.firebasestorage.app',
+    iosClientId: '495035301106-cb8ak6u1jmihvcdknpspl5e8j3o1gaci.apps.googleusercontent.com',
     iosBundleId: 'com.example.falaDoutorChallenge',
   );
 
@@ -73,6 +74,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '495035301106',
     projectId: 'fala-doutor-challenge',
     storageBucket: 'fala-doutor-challenge.firebasestorage.app',
+    iosClientId: '495035301106-cb8ak6u1jmihvcdknpspl5e8j3o1gaci.apps.googleusercontent.com',
     iosBundleId: 'com.example.falaDoutorChallenge',
   );
 
@@ -85,4 +87,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'fala-doutor-challenge.firebasestorage.app',
     measurementId: 'G-2HVK2VSGF3',
   );
+
 }

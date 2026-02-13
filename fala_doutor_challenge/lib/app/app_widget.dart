@@ -1,5 +1,10 @@
 import 'package:fala_doutor_challenge/app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'
+    show
+        GlobalMaterialLocalizations,
+        GlobalWidgetsLocalizations,
+        GlobalCupertinoLocalizations;
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppWidget extends StatelessWidget {
@@ -18,6 +23,7 @@ class AppWidget extends StatelessWidget {
     Modular.setObservers([
       // por exemplo, AnalyticsObserver
     ]);
+    
     setPrintResolver(
       (text) => debugPrint("[MODULAR]: $text"),
     ); // Customização dos Logs
@@ -30,6 +36,13 @@ class AppWidget extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
       routerConfig: Modular.routerConfig,
+      locale: const Locale('pt', 'BR'),
+      supportedLocales: const [Locale('pt', 'BR'), Locale('en', 'US')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

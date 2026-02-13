@@ -6,7 +6,7 @@ abstract class SignUpEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Atualiza o usuário parcialmente via copyWith
+// Atualiza o usuário parcialmente via copyWith
 class SignUpUpdateUserEvent extends SignUpEvent {
   final UserEntity user;
 
@@ -16,13 +16,13 @@ class SignUpUpdateUserEvent extends SignUpEvent {
   List<Object?> get props => [user];
 }
 
-/// Avança step
+// Avança step
 class SignUpNextStepEvent extends SignUpEvent {}
 
-/// Volta step
+// Volta step
 class SignUpPreviousStepEvent extends SignUpEvent {}
 
-/// Finaliza e envia o cadastro
+// Finaliza e envia o cadastro
 class SignUpSubmitEvent extends SignUpEvent {
   final String password;
 
@@ -31,3 +31,6 @@ class SignUpSubmitEvent extends SignUpEvent {
   @override
   List<Object?> get props => [password];
 }
+
+// Carregar os planos de saúde
+class SignUpLoadHealthPlansEvent extends SignUpEvent {}

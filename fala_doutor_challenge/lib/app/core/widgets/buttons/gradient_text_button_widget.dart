@@ -32,7 +32,7 @@ class _GradientTextButtonWidgetState extends State<GradientTextButtonWidget> {
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
       child: Container(
-        height: widget.height ?? 50,
+        height: widget.height ?? 55,
         width: widget.width ?? double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(

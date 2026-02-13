@@ -12,7 +12,12 @@
           "package_name": "com.example.fala_doutor_challenge"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "495035301106-jffvfsetk1fjv405ca4m5dnefh1ff3t9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDdiOEYwchQDJhRjTG5myIOAiOEV-o4COQ"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495035301106-jffvfsetk1fjv405ca4m5dnefh1ff3t9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "495035301106-cb8ak6u1jmihvcdknpspl5e8j3o1gaci.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.falaDoutorChallenge"
+              }
+            }
+          ]
         }
       }
     }

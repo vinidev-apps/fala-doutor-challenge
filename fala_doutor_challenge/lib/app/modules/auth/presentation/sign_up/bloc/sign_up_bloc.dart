@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/user_entity.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/entities/user_locale_entity.dart';
+import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/get_available_health_plans_usecase.dart';
 import 'package:fala_doutor_challenge/app/modules/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:flutter/widgets.dart';
 
@@ -9,35 +10,39 @@ import 'sign_up_states.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final SignUpUsecase signUpUsecase;
+  final GetAvailableHealthPlansUsecase getAvailableHealthPlansUsecase;
 
-  SignUpBloc({required this.signUpUsecase})
-    : super(
-        SignUpFlowState(
-          user: UserEntity(
-            id: "",
-            type: "",
-            name: "",
-            email: "",
-            phone: null,
-            birthDate: DateTime.now(),
-            sex: "",
-            cpf: null,
-            avatarUrl: null,
-            userLocale: UserLocaleEntity(country: "", state: "", city: ""),
-            patientData: null,
-            doctorData: null,
-            emailVerified: false,
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-          ),
-          currentStep: 0,
-          totalSteps: 5,
-        ),
-      ) {
+  SignUpBloc({
+    required this.signUpUsecase,
+    required this.getAvailableHealthPlansUsecase,
+  }) : super(
+         SignUpFlowState(
+           user: UserEntity(
+             id: "",
+             type: "",
+             name: "",
+             email: "",
+             phone: null,
+             birthDate: DateTime.now(),
+             sex: "",
+             cpf: null,
+             avatarUrl: null,
+             userLocale: UserLocaleEntity(country: "", state: "", city: ""),
+             patientData: null,
+             doctorData: null,
+             emailVerified: false,
+             createdAt: DateTime.now(),
+             updatedAt: DateTime.now(),
+           ),
+           currentStepIndex: 0,
+           totalSteps: 5,
+         ),
+       ) {
     on<SignUpUpdateUserEvent>(_onUpdateUser);
     on<SignUpNextStepEvent>(_onNextStep);
     on<SignUpPreviousStepEvent>(_onPreviousStep);
     on<SignUpSubmitEvent>(_onSubmit);
+    on<SignUpLoadHealthPlansEvent>(_onLoadHealthPlans);
   }
 
   Future<void> _onUpdateUser(
@@ -67,9 +72,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     emit(
       current.copyWith(
-        currentStep: (current.currentStep < current.totalSteps - 1)
-            ? current.currentStep + 1
-            : current.currentStep,
+        currentStep: (current.currentStepIndex < current.totalSteps - 1)
+            ? current.currentStepIndex + 1
+            : current.currentStepIndex,
       ),
     );
   }
@@ -82,7 +87,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     emit(
       current.copyWith(
-        currentStep: current.currentStep > 0 ? current.currentStep - 1 : 0,
+        currentStep: current.currentStepIndex > 0
+            ? current.currentStepIndex - 1
+            : 0,
       ),
     );
   }
@@ -102,6 +109,32 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       );
 
       emit(SignUpSuccessState(createdUser));
+    } catch (e) {
+      emit(SignUpErrorState(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadHealthPlans(
+    SignUpLoadHealthPlansEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    final current = state as SignUpFlowState;
+
+    // Evita refetch desnecessário
+    if (current.availableHealthPlans.isNotEmpty) return;
+    emit(current.copyWith(isLoadingHealthPlans: true));
+
+    try {
+      final plans = await getAvailableHealthPlansUsecase();
+
+      debugPrint("Chegaram ${plans?.length ?? 0} no BLoC");
+
+      emit(
+        current.copyWith(
+          availableHealthPlans: plans ?? [],
+          isLoadingHealthPlans: false,
+        ),
+      );
     } catch (e) {
       emit(SignUpErrorState(e.toString()));
     }
